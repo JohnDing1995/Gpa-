@@ -1,3 +1,7 @@
+#!/usr/bin/python  
+# -*- coding: utf-8 -*-  
+# __author__ = 'Ruiyang Ding'
+
 import xlrd
 class Gpa_Calc:
     def __init__(self,name,pku_gpa=None,zju_gpa=None,std_gpa=None,stdrev_gpa=None):

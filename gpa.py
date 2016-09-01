@@ -1,3 +1,7 @@
+#!/usr/bin/python  
+# -*- coding: utf-8 -*-  
+# __author__ = 'Ruiyang Ding'
+
 from GPA_calculator import Gpa_Calc, get_sheet
 file_name = input('请输入文件名，包含后缀')
 sheet = get_sheet(file_name)
