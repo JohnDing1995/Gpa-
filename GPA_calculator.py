@@ -4,30 +4,44 @@
 
 import xlrd
 class Gpa_Calc:
+
     def __init__(self,name,pku_gpa=None,zju_gpa=None,std_gpa=None,stdrev_gpa=None):
         self.name = name
         self.__pku_gpa = pku_gpa
         self.__zju_gpa = zju_gpa
         self.__std_gpa = std_gpa
         self.__stdrev_gpa = stdrev_gpa
+
+    def grade_convert(self, originalScore):
+        if originalScore=="优秀":
+            return 95
+        elif originalScore=="良好":
+            return 85
+        elif originalScore=="合格":
+            return 65
+        else:
+            return originalScore
+
     def pku(self, sh):
         nrows = sh.nrows
         grade_point = []
         weight_list = []
+        #print(sh.cell(3,4).value)
         for i in range(3, nrows-1):
-            grade = float(sh.cell(i,4).value)
+            grade = float(self.grade_convert(sh.cell(i,4).value))
             weight = float(sh.cell(i,9).value)
             grade_pku = 4 - 3 * (100 - grade) * (100 - grade) / 1600
             grade_point.append(grade_pku*weight)
             weight_list.append(weight)
         gpa = sum(grade_point)/sum(weight_list)
         self.__pku_gpa = gpa
+        
     def zju(self, sh):
         nrows = sh.nrows
         grade_point = []
         weight_list = []
         for i in range(3, nrows-1):
-            grade = float(sh.cell(i,4).value)
+            grade = float(self.grade_convert(sh.cell(i,4).value))
             weight = float(sh.cell(i,9).value)
             if grade<60:
                 grade_zju = 0
@@ -44,7 +58,7 @@ class Gpa_Calc:
         grade_point = []
         weight_list = []
         for i in range(3, nrows-1):
-            grade = float(sh.cell(i,4).value)
+            grade = float(self.grade_convert(sh.cell(i,4).value))
             weight = float(sh.cell(i,9).value)
             if grade<60:
                 grade_std = 0
@@ -65,7 +79,7 @@ class Gpa_Calc:
         grade_point = []
         weight_list = []
         for i in range(3, nrows-1):
-            grade = float(sh.cell(i,4).value)
+            grade = float(self.grade_convert(sh.cell(i,4).value))
             weight = float(sh.cell(i,9).value)
             if grade<60:
                 grade_stdrev = 0
